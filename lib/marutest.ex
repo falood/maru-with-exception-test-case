@@ -3,20 +3,20 @@ end
 
 defmodule MWEH do
   use Maru.Router
-  mount Maru.TestTest.MWEH.M1
-
-  rescue_from :all do
-    conn |> put_status(500) |> text("500")
-  end
+  mount MWEH.M1
 
   rescue_from Maru.Exceptions.InvalidFormatter do
     conn |> put_status(400) |> text("400")
+  end
+
+  rescue_from :all do
+    conn |> put_status(500) |> text("500")
   end
 end
 
 defmodule MWEH.M1 do
   use Maru.Router
-  mount Maru.TestTest.MWEH.M2
+  mount MWEH.M2
 
   rescue_from ArithmeticError do
     conn |> put_status(501) |> text("501")
